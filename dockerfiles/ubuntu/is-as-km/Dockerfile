@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # set to latest Ubuntu LTS
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER WSO2 Docker Maintainers "dev@wso2.org"
 
 # set user configurations
@@ -59,7 +59,7 @@ RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
 
 # copy the jdk and wso2 product distributions to user's home directory
 COPY --chown=wso2carbon:wso2 ${FILES}/${JDK} ${USER_HOME}/java/
-COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK} ${WSO2_SERVER_HOME}/
+COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${WSO2_SERVER_HOME}/
 # copy shared artifacts to a temporary location
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/repository/deployment/ ${USER_HOME}/wso2-tmp/deployment/
 # copy init script to user home
@@ -83,5 +83,5 @@ ENV JAVA_HOME=${JAVA_HOME} \
 # expose ports
 EXPOSE 9763 9443
 
-# initiate container and start WSO2 Carbon server
+# initiate container and start WSO2 Carbon Server
 ENTRYPOINT ${WORKING_DIRECTORY}/init.sh

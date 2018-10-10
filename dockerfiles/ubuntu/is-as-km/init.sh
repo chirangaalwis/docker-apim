@@ -1,7 +1,6 @@
 #!/bin/sh
 # ------------------------------------------------------------------------
 # Copyright 2018 WSO2, Inc. (http://wso2.com)
-#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -39,8 +38,8 @@ test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" 
 if test -d ${original_deployment_artifacts}; then
     if [ -z "$(ls -A ${deployment_volume}/)" ]; then
 	    # if no artifact is found under <WSO2_SERVER_HOME>/repository/deployment; copy originals
-	echo "Copying original deployment artifacts from temporary location to server..."
-	cp -R ${original_deployment_artifacts}/* ${deployment_volume}/
+	    echo "Copying original deployment artifacts from temporary location to server..."
+	    cp -R ${original_deployment_artifacts}/* ${deployment_volume}/
     fi
 fi
 

@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # set to latest Ubuntu LTS
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER WSO2 Docker Maintainers "dev@wso2.org"
 
 # set user configurations
@@ -36,6 +36,13 @@ ARG WSO2_SERVER=wso2am
 ARG WSO2_SERVER_VERSION=2.5.0
 ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER_PACK}
+# set WSO2 EULA
+ARG MOTD="\n\
+Welcome to WSO2 Docker resources.\n\
+------------------------------------ \n\
+This Docker container comprises of a WSO2 product, running with its latest GA release \n\
+which is under the Apache License, Version 2.0. \n\
+Read more about Apache License, Version 2.0 here @ http://www.apache.org/licenses/LICENSE-2.0.\n"
 
 # install required packages
 RUN apt-get update && \
@@ -45,13 +52,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
     >> /etc/bash.bashrc \
-    ; echo "\n\
-    Welcome to WSO2 Docker Resources \n\
-    --------------------------------- \n\
-    This Docker container comprises of a WSO2 product, running with its latest updates \n\
-    which are under the End User License Agreement (EULA) 2.0. \n\
-    Read more about EULA 2.0 here @ https://wso2.com/licenses/wso2-update/2.0 \n" \
-    > /etc/motd
+    ; echo "$MOTD" > /etc/motd
 
 # create a user group and a user
 RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
@@ -59,9 +60,9 @@ RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
 
 # copy the jdk and wso2 product distributions to user's home directory
 COPY --chown=wso2carbon:wso2 ${FILES}/${JDK} ${USER_HOME}/java/
-COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
+COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${WSO2_SERVER_HOME}/
 # copy shared artifacts to a temporary location
-COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/repository/deployment/ ${USER_HOME}/wso2-tmp/deployment/
+COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/repository/deployment/server/ ${USER_HOME}/wso2-tmp/server/
 # copy init script to user home
 COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
 # copy mysql connector jar to the server as a third party library
