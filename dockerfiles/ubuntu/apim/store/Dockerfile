@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # set to product base image
-FROM wso2am-base:2.6.0
+FROM wso2am-base:2.5.0
 
 # copy entrypoint bash script to user home
 COPY --chown=wso2carbon:wso2 init.sh ${WORKING_DIRECTORY}/

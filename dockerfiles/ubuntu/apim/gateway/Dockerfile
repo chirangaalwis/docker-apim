@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # set to product base image
-FROM wso2am-base:2.6.0
+FROM wso2am-base:2.5.0
 
 # copy entrypoint bash script to user home
 COPY --chown=wso2carbon:wso2 init.sh ${WORKING_DIRECTORY}/
@@ -27,7 +27,7 @@ RUN mkdir -p ${WORKING_DIRECTORY}/wso2-tmp/ && \
     cp -r ${WSO2_SERVER_HOME}/repository/deployment/server ${WORKING_DIRECTORY}/wso2-tmp/server
 
 # expose API Manager Gateway ports
-EXPOSE 8280 8243 9099 9711 9611 7711 7611 10397
+EXPOSE 8280 8243 9443 9763 10397 9099
 
 # set entrypoint to init script
 ENTRYPOINT ["/home/wso2carbon/init.sh"]
