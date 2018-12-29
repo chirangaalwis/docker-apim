@@ -85,4 +85,4 @@ ENV JAVA_HOME=${JAVA_HOME} \
 EXPOSE 9763 9443
 
 # initiate container and start WSO2 Carbon server
-ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
+ENTRYPOINT ["/home/wso2carbon/init.sh"]
