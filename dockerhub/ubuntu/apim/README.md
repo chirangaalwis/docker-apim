@@ -12,35 +12,19 @@ This section defines the step-by-step instructions to build an [Ubuntu](https://
 git clone https://github.com/wso2/docker-apim.git
 ```
 
->The local copy of the `dockerfiles/ubuntu/apim` directory will be referred to as `AM_DOCKERFILE_HOME` from this point onwards.
+>The local copy of the `dockerhub/ubuntu/apim` directory will be referred to as `AM_DOCKERFILE_HOME` from this point onwards.
 
-##### 2. Add WSO2 API Manager distribution and MySQL connector to `<AM_DOCKERFILE_HOME>/files`.
-
-- Download [WSO2 API Manager v2.6.0](https://wso2.com/api-management/)
-distribution and extract it to `<AM_DOCKERFILE_HOME>/files`.
-- Download [MySQL Connector/J](https://downloads.mysql.com/archives/c-j)
-and copy that to `<AM_DOCKERFILE_HOME>/files`.
-- Once all of these are in place, it should look as follows:
-
-  ```bash
-  <AM_DOCKERFILE_HOME>/files/wso2am-2.6.0/
-  <AM_DOCKERFILE_HOME>/files/mysql-connector-java-<version>-bin.jar
-  ```
-  
->Please refer to [WSO2 Update Manager documentation]( https://docs.wso2.com/display/WUM300/WSO2+Update+Manager)
-in order to obtain latest bug fixes and updates for the product.
-
-##### 3. Build the Docker image.
+##### 2. Build the Docker image.
 - Navigate to `<AM_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
     + `docker build -t wso2am:2.6.0 .`
     
-##### 4. Running the Docker image.
+##### 3. Running the Docker image.
 - `docker run -it -p 9443:9443 wso2am:2.6.0`
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 5. Accessing management console.
+##### 4. Accessing management console.
 - To access the management console, use the docker host IP and port 9443.
     + `https://<DOCKER_HOST>:9443/carbon`
     
